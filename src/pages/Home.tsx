@@ -87,10 +87,7 @@ export default function Home() {
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        paddingBottom: 40,
-      }}
+    <View
       style={{
         flex: 1,
         backgroundColor: "#F8FAFC",
@@ -104,10 +101,15 @@ export default function Home() {
           gap: 12,
           paddingTop: (StatusBar.currentHeight ?? 0) + 20,
           paddingHorizontal: 20,
-          paddingBottom: 20,
+          paddingBottom: 15,
           backgroundColor: "#FFFFFF",
           borderBottomWidth: 1,
           borderBottomColor: "#E2E8F0",
+          shadowColor: "#000",
+          shadowOpacity: 0.05,
+          shadowRadius: 4,
+          elevation: 3,
+          zIndex: 10,
         }}
       >
         <View>
@@ -134,80 +136,82 @@ export default function Home() {
         <Ionicons name="document-text-outline" size={48} color="#2563EB" />
       </View>
 
-      <View
-        style={{
-          backgroundColor: "#FFFFFF",
-          marginHorizontal: 16,
-          marginTop: 20,
-          borderRadius: 16,
-          padding: 16,
-          shadowColor: "#000",
-          shadowOpacity: 0.08,
-          shadowRadius: 8,
-          elevation: 2,
-        }}
-      >
-        <AdvertenciaForm data={data} setData={setData} />
-      </View>
-
-      <Pressable
-        onPress={confirmarLimpeza}
-        style={{
-          marginHorizontal: 16,
-          marginTop: 20,
-          paddingVertical: 14,
-          borderRadius: 12,
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "row",
-          gap: 8,
-          borderWidth: 1,
-          borderColor: "#FCA5A5",
-          backgroundColor: "#FEF2F2",
-        }}
-      >
-        <Ionicons name="trash" size={20} color="#B91C1C" />
-        <Text
+      <ScrollView>
+        <View
           style={{
-            color: "#B91C1C",
-            fontSize: 20,
-            fontWeight: "600",
+            backgroundColor: "#FFFFFF",
+            marginHorizontal: 16,
+            marginTop: 15,
+            borderRadius: 16,
+            padding: 16,
+            shadowColor: "#000",
+            shadowOpacity: 0.08,
+            shadowRadius: 8,
+            elevation: 2,
           }}
         >
-          Limpar Formulário
-        </Text>
-      </Pressable>
+          <AdvertenciaForm data={data} setData={setData} />
+        </View>
 
-      <Pressable
-        onPress={handleGerarDocumento}
-        style={{
-          marginHorizontal: 16,
-          marginTop: 12,
-          marginBottom: 32,
-          paddingVertical: 14,
-          borderRadius: 12,
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "row",
-          gap: 8,
-          borderWidth: 1,
-          borderColor: "#1D4ED8",
-          backgroundColor: "#2563EB",
-        }}
-      >
-        <Ionicons name="document-text" size={20} color="#FFFFFF" />
-        <Text
+        <Pressable
+          onPress={confirmarLimpeza}
           style={{
-            color: "#FFFFFF",
-            fontSize: 20,
-            fontWeight: "600",
+            marginHorizontal: 16,
+            marginTop: 20,
+            paddingVertical: 14,
+            borderRadius: 12,
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
+            gap: 8,
+            borderWidth: 1,
+            borderColor: "#FCA5A5",
+            backgroundColor: "#FEF2F2",
           }}
         >
-          {data.tipoDocumento === "ADVERTENCIA"
-            ? "Gerar Advertência"
-            : "Gerar Suspensão"}
-        </Text>
-      </Pressable>
-    </ScrollView>
+          <Ionicons name="trash" size={20} color="#B91C1C" />
+          <Text
+            style={{
+              color: "#B91C1C",
+              fontSize: 20,
+              fontWeight: "600",
+            }}
+          >
+            Limpar Formulário
+          </Text>
+        </Pressable>
+
+        <Pressable
+          onPress={handleGerarDocumento}
+          style={{
+            marginHorizontal: 16,
+            marginTop: 12,
+            marginBottom: 32,
+            paddingVertical: 14,
+            borderRadius: 12,
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
+            gap: 8,
+            borderWidth: 1,
+            borderColor: "#1D4ED8",
+            backgroundColor: "#2563EB",
+          }}
+        >
+          <Ionicons name="document-text" size={20} color="#FFFFFF" />
+          <Text
+            style={{
+              color: "#FFFFFF",
+              fontSize: 20,
+              fontWeight: "600",
+            }}
+          >
+            {data.tipoDocumento === "ADVERTENCIA"
+              ? "Gerar Advertência"
+              : "Gerar Suspensão"}
+          </Text>
+        </Pressable>
+      </ScrollView>
+    </View>
   );
 }
