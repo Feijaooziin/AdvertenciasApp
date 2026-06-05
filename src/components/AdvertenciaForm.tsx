@@ -1,11 +1,12 @@
 import { Dispatch, SetStateAction } from "react";
-import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+
 import { AdvertenciaData } from "../types/advertencia";
 import { Input } from "./Input";
 import { DateInput } from "./DateInput";
-import { motivosAdvertencia } from "../data/motivos";
 import { MotivosSelector } from "./MotivosSelector";
+import { motivosAdvertencia } from "../data/motivos";
 
 interface Props {
   data: AdvertenciaData;
@@ -14,20 +15,11 @@ interface Props {
 
 export function AdvertenciaForm({ data, setData }: Props) {
   return (
-    <ScrollView contentContainerStyle={{ padding: 16 }}>
-      <Text
-        style={{
-          fontSize: 24,
-          fontWeight: "700",
-          marginVertical: 36,
-        }}
-      >
-        Advertências
-      </Text>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <Input
         label="Funcionário"
         value={data.funcionario}
-        placeholder="Nome do colaborador"
+        placeholder="Nome completo do funcionário"
         onChangeText={(text) =>
           setData({
             ...data,
@@ -49,52 +41,77 @@ export function AdvertenciaForm({ data, setData }: Props) {
 
       <Text
         style={{
-          fontSize: 16,
-          marginBottom: 4,
-          marginTop: 12,
+          fontSize: 14,
           fontWeight: "600",
+          color: "#334155",
+          marginTop: 16,
+          marginBottom: 8,
         }}
       >
         Tipo de Documento
       </Text>
 
-      <Picker
-        selectedValue={data.tipoDocumento}
-        onValueChange={(value) =>
-          setData({
-            ...data,
-            tipoDocumento: value,
-          })
-        }
+      <View
+        style={{
+          borderWidth: 1,
+          borderColor: "#CBD5E1",
+          borderRadius: 10,
+          overflow: "hidden",
+          backgroundColor: "#FFFFFF",
+        }}
       >
-        <Picker.Item label="Advertência" value="ADVERTENCIA" />
-        <Picker.Item label="Suspensão" value="SUSPENSAO" />
-      </Picker>
+        <Picker
+          selectedValue={data.tipoDocumento}
+          onValueChange={(value) =>
+            setData({
+              ...data,
+              tipoDocumento: value,
+            })
+          }
+        >
+          <Picker.Item label="Advertência" value="ADVERTENCIA" />
+
+          <Picker.Item label="Suspensão" value="SUSPENSAO" />
+        </Picker>
+      </View>
 
       <Text
         style={{
-          fontSize: 16,
-          marginBottom: 4,
-          marginTop: 12,
+          fontSize: 14,
           fontWeight: "600",
+          color: "#334155",
+          marginTop: 16,
+          marginBottom: 8,
         }}
       >
-        Número
+        Número da Medida
       </Text>
 
-      <Picker
-        selectedValue={data.numeroAdvertencia}
-        onValueChange={(value) =>
-          setData({
-            ...data,
-            numeroAdvertencia: value,
-          })
-        }
+      <View
+        style={{
+          borderWidth: 1,
+          borderColor: "#CBD5E1",
+          borderRadius: 10,
+          overflow: "hidden",
+          backgroundColor: "#FFFFFF",
+        }}
       >
-        <Picker.Item label="1ª" value={1} />
-        <Picker.Item label="2ª" value={2} />
-        <Picker.Item label="3ª" value={3} />
-      </Picker>
+        <Picker
+          selectedValue={data.numeroAdvertencia}
+          onValueChange={(value) =>
+            setData({
+              ...data,
+              numeroAdvertencia: value,
+            })
+          }
+        >
+          <Picker.Item label="1ª Advertência" value={1} />
+
+          <Picker.Item label="2ª Advertência" value={2} />
+
+          <Picker.Item label="3ª Advertência" value={3} />
+        </Picker>
+      </View>
 
       <MotivosSelector
         motivos={motivosAdvertencia}
@@ -129,22 +146,11 @@ export function AdvertenciaForm({ data, setData }: Props) {
         }
       />
 
-      <Text
-        style={{
-          fontSize: 16,
-          marginBottom: 4,
-          marginTop: 12,
-          fontWeight: "600",
-        }}
-      >
-        Observações
-      </Text>
-
       <Input
         label="Observações"
         value={data.observacoes}
+        placeholder="Informações adicionais (opcional)"
         multiline
-        placeholder="Observações adicionais"
         onChangeText={(text) =>
           setData({
             ...data,
@@ -156,7 +162,7 @@ export function AdvertenciaForm({ data, setData }: Props) {
       <Input
         label="Cidade"
         value={data.cidade}
-        placeholder="Ex: Pinhais"
+        placeholder="Cidade da assinatura"
         onChangeText={(text) =>
           setData({
             ...data,
@@ -164,16 +170,6 @@ export function AdvertenciaForm({ data, setData }: Props) {
           })
         }
       />
-
-      <Text
-        style={{
-          marginTop: 20,
-        }}
-      >
-        Motivos selecionados:
-      </Text>
-
-      <Text>{data.motivos.join(", ")}</Text>
     </ScrollView>
   );
 }
