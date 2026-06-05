@@ -22,12 +22,6 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
             box-sizing: border-box;
           }
 
-          .header {
-            display: flex;
-            border: 1px solid #000;
-            height: 60px;
-          }
-
           .header-table {
             width: 100%;
             border-collapse: collapse;
@@ -47,19 +41,6 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
             text-align: center;
             font-size: 18pt;
             font-weight: bold;
-          }
-
-          .logo {
-            width: 150px;
-            border-right: 1px solid #000;
-          }
-
-          .titulo {
-            flex: 1;
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            padding-top: 18px;
           }
 
           .table {
@@ -101,8 +82,8 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
 
           .linha {
             border-top: 1px solid #000;
-            width: 90%;
-            margin: 0 auto;
+            width: 85%;
+            margin: 0 auto 4px auto;
           }
 
           .nome-assinatura {
@@ -120,11 +101,26 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
 
           .testemunhas {
             margin-top: 60px;
-            display: table;
             width: 100%;
           }
 
+        .testemunhas-table {
+            margin-top: 80px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .testemunhas-table td {
+            width: 50%;
+            text-align: center;
+            vertical-align: top;
+        }
+
           .testemunha {
+            display: table-cell;
+            width: 50%;
+            text-align: center;
+            vertical-align: top;
             font-size: 12pt;
           }
 
@@ -274,19 +270,19 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
             </div>
           </div>
 
-          <div class="testemunhas">
-            <div class="testemunha">
-              <div class="linha"></div>
+        <table class="testemunhas-table">
+            <tr>
+                <td>
+                <div class="linha"></div>
+                <p>TESTEMUNHA</p>
+                </td>
 
-              <p>TESTEMUNHA</p>
-            </div>
-
-            <div class="testemunha">
-              <div class="linha"></div>
-
-              <p>TESTEMUNHA</p>
-            </div>
-          </div>
+                <td>
+                <div class="linha"></div>
+                <p>TESTEMUNHA</p>
+                </td>
+            </tr>
+        </table>
 
           <div class="lgpd">
             Nós da COMFRIO valorizamos a privacidade e a
