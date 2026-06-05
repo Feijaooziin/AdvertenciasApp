@@ -4,6 +4,9 @@ export function gerarHtmlAdvertencia(
   data: AdvertenciaData,
   logoBase64: string,
 ) {
+  const funcionario = data.funcionario.trim().toUpperCase();
+  const cidade = (data.cidade || "Pinhais").trim().toUpperCase();
+
   return `
     <!DOCTYPE html>
     <html lang="pt-BR">
@@ -193,7 +196,7 @@ export function gerarHtmlAdvertencia(
                     </td>
 
                     <td style="font-weight: bold">
-                        ${data.funcionario}
+                        ${funcionario}
                     </td>
                     </tr>
 
@@ -256,7 +259,7 @@ export function gerarHtmlAdvertencia(
 
                 <p style="margin-top: 30px;">
                     Favor dar seu ciente na cópia desta. <br>
-                    ${data.cidade || "Pinhais"},
+                    ${cidade},
                     ${data.dataAssinatura.toLocaleDateString("pt-BR")}
                 </p>
             </div>
@@ -278,7 +281,7 @@ export function gerarHtmlAdvertencia(
               <div class="linha"></div>
 
               <div class="nome-assinatura">
-                ${data.funcionario}
+                ${funcionario}
               </div>
 
               <div class="cargo-assinatura">
