@@ -65,13 +65,12 @@ export function gerarHtmlAdvertencia(
           }
 
           .table td {
-            border: 1px solid #000;
             padding: 4px 6px;
             font-size: 12pt;
           }
 
           .label {
-            width: 130px;
+            width: 75px;
             font-weight: bold;
           }
 
@@ -161,7 +160,6 @@ export function gerarHtmlAdvertencia(
                 <table class="header-table">
                     <tr>
                         <td class="logo-cell">
-                        <!-- Logo aqui futuramente -->
                             <img
                                 src="${logoBase64}"
                                 class="logo-img"
