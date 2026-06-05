@@ -52,6 +52,38 @@ export default function Home() {
     }
   };
 
+  const limparFormulario = () => {
+    setData({
+      funcionario: "",
+      admissao: undefined,
+      numeroAdvertencia: 1,
+      tipoDocumento: "ADVERTENCIA",
+      motivos: [],
+      observacoes: "",
+      dataOcorrido: new Date(),
+      dataAssinatura: new Date(),
+      cidade: "",
+    });
+  };
+
+  const confirmarLimpeza = () => {
+    Alert.alert(
+      "Limpar formulário",
+      "Deseja realmente limpar todos os campos?",
+      [
+        {
+          text: "Cancelar",
+          style: "cancel",
+        },
+        {
+          text: "Limpar",
+          style: "destructive",
+          onPress: limparFormulario,
+        },
+      ],
+    );
+  };
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -126,6 +158,30 @@ export default function Home() {
           {data.tipoDocumento === "ADVERTENCIA"
             ? "Gerar Advertência"
             : "Gerar Suspensão"}
+        </Text>
+      </Pressable>
+
+      <Pressable
+        onPress={confirmarLimpeza}
+        style={{
+          marginHorizontal: 16,
+          marginTop: 20,
+          paddingVertical: 14,
+          borderRadius: 12,
+          alignItems: "center",
+          borderWidth: 1,
+          borderColor: "#CBD5E1",
+          backgroundColor: "#FFFFFF",
+        }}
+      >
+        <Text
+          style={{
+            color: "#475569",
+            fontSize: 16,
+            fontWeight: "600",
+          }}
+        >
+          Limpar Formulário
         </Text>
       </Pressable>
     </ScrollView>
