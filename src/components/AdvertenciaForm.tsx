@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { AdvertenciaData } from "../types/advertencia";
 import { Input } from "./Input";
+import { DateInput } from "./DateInput";
 
 interface Props {
   data: AdvertenciaData;
@@ -20,6 +21,17 @@ export function AdvertenciaForm({ data, setData }: Props) {
           setData({
             ...data,
             funcionario: text,
+          })
+        }
+      />
+
+      <DateInput
+        label="Data de Admissão"
+        value={data.admissao}
+        onChange={(date) =>
+          setData({
+            ...data,
+            admissao: date,
           })
         }
       />
@@ -45,7 +57,6 @@ export function AdvertenciaForm({ data, setData }: Props) {
         }
       >
         <Picker.Item label="Advertência" value="ADVERTENCIA" />
-
         <Picker.Item label="Suspensão" value="SUSPENSAO" />
       </Picker>
 
@@ -70,11 +81,31 @@ export function AdvertenciaForm({ data, setData }: Props) {
         }
       >
         <Picker.Item label="1ª" value={1} />
-
         <Picker.Item label="2ª" value={2} />
-
         <Picker.Item label="3ª" value={3} />
       </Picker>
+
+      <DateInput
+        label="Data do Ocorrido"
+        value={data.dataOcorrido}
+        onChange={(date) =>
+          setData({
+            ...data,
+            dataOcorrido: date,
+          })
+        }
+      />
+
+      <DateInput
+        label="Data da Assinatura"
+        value={data.dataAssinatura}
+        onChange={(date) =>
+          setData({
+            ...data,
+            dataAssinatura: date,
+          })
+        }
+      />
 
       <Text
         style={{
