@@ -10,12 +10,12 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
         <style>
           body {
             font-family: Arial, sans-serif;
-            font-size: 12px;
+            font-size: 12pt;
             padding: 15px;
           }
 
           .container {
-            border: 1px solid #000;
+            border: 1.5px solid #000;
             padding: 12px;
             min-height: 95vh;
             position: relative;
@@ -45,7 +45,7 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
 
           .title-cell {
             text-align: center;
-            font-size: 20px;
+            font-size: 18pt;
             font-weight: bold;
           }
 
@@ -65,13 +65,13 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
           .table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
+            margin-top: 25px;
           }
 
           .table td {
             border: 1px solid #000;
             padding: 4px 6px;
-            font-size: 11px;
+            font-size: 12pt;
           }
 
           .label {
@@ -83,10 +83,11 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
             margin-top: 16px;
             text-align: justify;
             line-height: 1.5;
+            font-size: 12pt;
           }
 
           .assinaturas {
-            margin-top: 120px;
+            margin-top: 60px;
             display: table;
             width: 100%;
           }
@@ -105,13 +106,16 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
           }
 
           .nome-assinatura {
+            border-top: none;
             padding: 4px;
             font-weight: bold;
+            font-size: 12pt;
           }
 
           .cargo-assinatura {
+            border-top: none;
             padding: 4px;
-            font-size: 10px;
+            font-size: 12pt;
           }
 
           .testemunhas {
@@ -121,9 +125,7 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
           }
 
           .testemunha {
-            display: table-cell;
-            width: 50%;
-            text-align: center;
+            font-size: 12pt;
           }
 
           .lgpd {
@@ -131,7 +133,7 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
             left: 12px;
             right: 12px;
             bottom: 12px;
-            font-size: 8px;
+            font-size: 10pt;
             text-align: justify;
             line-height: 1.3;
           }
@@ -197,7 +199,7 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
                     </tr>
                 </table>
 
-                <div class="box">
+                <div class="box" style="margin-top: 50px;">
                     Na conformidade da Consolidação das Leis do Trabalho,
                     fica aderida a ${
                       data.tipoDocumento === "ADVERTENCIA"
@@ -239,7 +241,8 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
                     nos termos da legislação trabalhista vigente.
                 </div>
 
-                <p style="margin-top: 40px;">
+                <p style="margin-top: 30px;">
+                    Favor dar seu ciente na cópia desta. <br>
                     ${data.cidade || "Pinhais"},
                     ${data.dataAssinatura.toLocaleDateString("pt-BR")}
                 </p>
