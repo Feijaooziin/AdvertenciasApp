@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { View, Alert, Pressable, Text } from "react-native";
+import * as Sharing from "expo-sharing";
 
 import { AdvertenciaData } from "../types/advertencia";
 import { AdvertenciaForm } from "../components/AdvertenciaForm";
@@ -37,7 +38,11 @@ export default function Home() {
     try {
       const caminho = await gerarPDF(data);
 
-      Alert.alert("PDF gerado", caminho);
+      const disponivel = await Sharing.isAvailableAsync();
+
+      if (disponivel) {
+        await Sharing.shareAsync(caminho);
+      }
     } catch (error) {
       console.error(error);
 
