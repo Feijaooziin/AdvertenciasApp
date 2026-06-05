@@ -1,8 +1,17 @@
 import { useState } from "react";
-import { View, Alert, Pressable, Text, ScrollView } from "react-native";
+import {
+  View,
+  Alert,
+  Pressable,
+  Text,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import * as Sharing from "expo-sharing";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import { AdvertenciaForm } from "../components/AdvertenciaForm";
 import { gerarPDF } from "../services/pdfService";
@@ -136,7 +145,11 @@ export default function Home() {
         <Ionicons name="document-text-outline" size={48} color="#2563EB" />
       </View>
 
-      <ScrollView>
+      <KeyboardAwareScrollView
+        enableOnAndroid
+        keyboardShouldPersistTaps="handled"
+        extraScrollHeight={300}
+      >
         <View
           style={{
             backgroundColor: "#FFFFFF",
@@ -211,7 +224,7 @@ export default function Home() {
               : "Gerar Suspensão"}
           </Text>
         </Pressable>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 }
