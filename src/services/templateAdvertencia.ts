@@ -1,6 +1,23 @@
 import { AdvertenciaData } from "../types/advertencia";
+import * as FileSystem from "expo-file-system/legacy";
+import { Asset } from "expo-asset";
 
-export function gerarHtmlAdvertencia(data: AdvertenciaData) {
+export function gerarHtmlAdvertencia(
+  data: AdvertenciaData,
+  logoBase64: string,
+) {
+  async function carregarLogoBase64() {
+    const asset = Asset.fromModule(
+      require("../../assets/images/comfrio-logo.png"),
+    );
+
+    await asset.downloadAsync();
+
+    return await FileSystem.readAsStringAsync(asset.localUri!, {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+  }
+
   return `
     <!DOCTYPE html>
     <html lang="pt-BR">
@@ -33,8 +50,17 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
           }
 
           .logo-cell {
-            width: 200px;
-            height: 70px;
+            width: 240px;
+            height: 80px;
+            text-align: center;
+            vertical-align: middle;
+          }
+
+          .logo-img {
+            width: 220px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
           }
 
           .title-cell {
@@ -147,6 +173,11 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
                     <tr>
                         <td class="logo-cell">
                         <!-- Logo aqui futuramente -->
+                            <img
+                                src="${logoBase64}"
+                                class="logo-img"
+                                alt="Logo"
+                            />
                         </td>
 
                         <td class="title-cell">
