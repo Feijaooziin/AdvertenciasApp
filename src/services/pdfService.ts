@@ -11,7 +11,12 @@ function gerarNomeArquivo(data: AdvertenciaData) {
       ? `${data.numeroAdvertencia}ª Advertencia`
       : `${data.numeroAdvertencia}ª Suspensao`;
 
-  const funcionario = data.funcionario.trim().replace(/\s+/g, " ");
+  const funcionario = data.funcionario
+    .trim()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toUpperCase()
+    .replace(/\s+/g, " ");
 
   const motivo = data.motivos.length > 0 ? data.motivos[0] : "SemMotivo";
 

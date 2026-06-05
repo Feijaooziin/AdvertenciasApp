@@ -182,7 +182,7 @@ export function gerarHtmlAdvertencia(
                         EMPREGADOR:
                     </td>
 
-                    <td>
+                    <td style="font-weight: bold">
                         COMFRIO TRANSPORTES EIRELI
                     </td>
                     </tr>
@@ -192,7 +192,7 @@ export function gerarHtmlAdvertencia(
                         FUNCIONÁRIO:
                     </td>
 
-                    <td>
+                    <td style="font-weight: bold">
                         ${data.funcionario}
                     </td>
                     </tr>
