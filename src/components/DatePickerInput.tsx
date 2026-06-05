@@ -57,7 +57,7 @@ export function DatePickerInput({
           value={value ?? new Date()}
           mode="date"
           display={Platform.OS === "ios" ? "spinner" : "default"}
-          onValueChange={(selectedDate) => {
+          onValueChange={(_, selectedDate) => {
             setShow(false);
 
             if (selectedDate) {
