@@ -3,6 +3,7 @@ import { View, Alert, Pressable, Text } from "react-native";
 
 import { AdvertenciaData } from "../types/advertencia";
 import { AdvertenciaForm } from "../components/AdvertenciaForm";
+import { gerarPDF } from "../services/pdfService";
 
 export default function Home() {
   const [data, setData] = useState<AdvertenciaData>({
@@ -28,13 +29,20 @@ export default function Home() {
     return true;
   };
 
-  const handleGerarDocumento = () => {
+  const handleGerarDocumento = async () => {
     if (!validarFormulario()) {
       return;
     }
 
-    console.log(data);
-    Alert.alert("Sucesso", "Dados validados com sucesso.");
+    try {
+      const caminho = await gerarPDF(data);
+
+      Alert.alert("PDF gerado", caminho);
+    } catch (error) {
+      console.error(error);
+
+      Alert.alert("Erro", "Não foi possível gerar o PDF.");
+    }
   };
 
   return (
