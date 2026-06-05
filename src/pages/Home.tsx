@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, Alert, Pressable, Text, ScrollView } from "react-native";
 import * as Sharing from "expo-sharing";
+import { Ionicons } from "@expo/vector-icons";
 
 import { AdvertenciaForm } from "../components/AdvertenciaForm";
 import { gerarPDF } from "../services/pdfService";
@@ -138,6 +139,34 @@ export default function Home() {
       </View>
 
       <Pressable
+        onPress={confirmarLimpeza}
+        style={{
+          marginHorizontal: 16,
+          marginTop: 20,
+          paddingVertical: 14,
+          borderRadius: 12,
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "row",
+          gap: 8,
+          borderWidth: 1,
+          borderColor: "#FCA5A5",
+          backgroundColor: "#FEF2F2",
+        }}
+      >
+        <Ionicons name="trash-outline" size={18} color="#B91C1C" />
+        <Text
+          style={{
+            color: "#B91C1C",
+            fontSize: 16,
+            fontWeight: "600",
+          }}
+        >
+          Limpar Formulário
+        </Text>
+      </Pressable>
+
+      <Pressable
         onPress={handleGerarDocumento}
         style={{
           backgroundColor: "#2563EB",
@@ -158,30 +187,6 @@ export default function Home() {
           {data.tipoDocumento === "ADVERTENCIA"
             ? "Gerar Advertência"
             : "Gerar Suspensão"}
-        </Text>
-      </Pressable>
-
-      <Pressable
-        onPress={confirmarLimpeza}
-        style={{
-          marginHorizontal: 16,
-          marginTop: 20,
-          paddingVertical: 14,
-          borderRadius: 12,
-          alignItems: "center",
-          borderWidth: 1,
-          borderColor: "#CBD5E1",
-          backgroundColor: "#FFFFFF",
-        }}
-      >
-        <Text
-          style={{
-            color: "#475569",
-            fontSize: 16,
-            fontWeight: "600",
-          }}
-        >
-          Limpar Formulário
         </Text>
       </Pressable>
     </ScrollView>
