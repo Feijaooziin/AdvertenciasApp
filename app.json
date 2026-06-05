@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "AdvertenciasApp",
+    "name": "Advertencias",
     "slug": "AdvertenciasApp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,7 +24,13 @@
     },
     "plugins": [
       "expo-sharing",
-      "expo-asset"
-    ]
+      "expo-asset",
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "c7f7a45c-a46d-4c09-933d-7bba666877f7"
+      }
+    }
   }
 }
