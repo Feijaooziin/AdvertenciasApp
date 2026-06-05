@@ -15,6 +15,15 @@ interface Props {
 export function AdvertenciaForm({ data, setData }: Props) {
   return (
     <ScrollView contentContainerStyle={{ padding: 16 }}>
+      <Text
+        style={{
+          fontSize: 24,
+          fontWeight: "700",
+          marginVertical: 36,
+        }}
+      >
+        Advertências
+      </Text>
       <Input
         label="Funcionário"
         value={data.funcionario}
