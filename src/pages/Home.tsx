@@ -154,11 +154,11 @@ export default function Home() {
           backgroundColor: "#FEF2F2",
         }}
       >
-        <Ionicons name="trash-outline" size={18} color="#B91C1C" />
+        <Ionicons name="trash" size={20} color="#B91C1C" />
         <Text
           style={{
             color: "#B91C1C",
-            fontSize: 16,
+            fontSize: 20,
             fontWeight: "600",
           }}
         >
@@ -169,19 +169,26 @@ export default function Home() {
       <Pressable
         onPress={handleGerarDocumento}
         style={{
-          backgroundColor: "#2563EB",
           marginHorizontal: 16,
-          marginTop: 20,
-          paddingVertical: 16,
+          marginTop: 12,
+          marginBottom: 32,
+          paddingVertical: 14,
           borderRadius: 12,
           alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "row",
+          gap: 8,
+          borderWidth: 1,
+          borderColor: "#1D4ED8",
+          backgroundColor: "#2563EB",
         }}
       >
+        <Ionicons name="document-text" size={20} color="#FFFFFF" />
         <Text
           style={{
             color: "#FFFFFF",
-            fontSize: 16,
-            fontWeight: "700",
+            fontSize: 20,
+            fontWeight: "600",
           }}
         >
           {data.tipoDocumento === "ADVERTENCIA"
