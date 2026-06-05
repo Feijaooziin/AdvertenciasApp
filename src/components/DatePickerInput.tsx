@@ -1,25 +1,20 @@
 import { useState } from "react";
+import { Platform, Pressable, Text, View } from "react-native";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-import { Platform, Pressable, Text, View } from "react-native";
-
-interface DateInputProps {
+interface DatePickerInputProps {
   label: string;
   value?: Date;
   onChange: (date: Date) => void;
 }
 
-export function DateInput({ label, value, onChange }: DateInputProps) {
-  const [showPicker, setShowPicker] = useState(false);
-
-  const handleChange = (_: any, selectedDate?: Date) => {
-    setShowPicker(false);
-
-    if (selectedDate) {
-      onChange(selectedDate);
-    }
-  };
+export function DatePickerInput({
+  label,
+  value,
+  onChange,
+}: DatePickerInputProps) {
+  const [show, setShow] = useState(false);
 
   return (
     <View
@@ -31,6 +26,7 @@ export function DateInput({ label, value, onChange }: DateInputProps) {
         style={{
           fontSize: 14,
           fontWeight: "600",
+          color: "#334155",
           marginBottom: 6,
         }}
       >
@@ -38,25 +34,36 @@ export function DateInput({ label, value, onChange }: DateInputProps) {
       </Text>
 
       <Pressable
-        onPress={() => setShowPicker(true)}
+        onPress={() => setShow(true)}
         style={{
           borderWidth: 1,
-          borderColor: "#D1D5DB",
-          borderRadius: 8,
+          borderColor: "#CBD5E1",
+          borderRadius: 10,
+          backgroundColor: "#FFFFFF",
           padding: 12,
         }}
       >
-        <Text>
+        <Text
+          style={{
+            color: value ? "#0F172A" : "#94A3B8",
+          }}
+        >
           {value ? value.toLocaleDateString("pt-BR") : "Selecione uma data"}
         </Text>
       </Pressable>
 
-      {showPicker && (
+      {show && (
         <DateTimePicker
-          value={value || new Date()}
+          value={value ?? new Date()}
           mode="date"
           display={Platform.OS === "ios" ? "spinner" : "default"}
-          onChange={handleChange}
+          onChange={(_, selectedDate) => {
+            setShow(false);
+
+            if (selectedDate) {
+              onChange(selectedDate);
+            }
+          }}
         />
       )}
     </View>

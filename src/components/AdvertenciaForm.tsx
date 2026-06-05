@@ -4,9 +4,10 @@ import { Picker } from "@react-native-picker/picker";
 
 import { AdvertenciaData } from "../types/advertencia";
 import { Input } from "./Input";
-import { DateInput } from "./DateInput";
 import { MotivosSelector } from "./MotivosSelector";
 import { motivosAdvertencia } from "../data/motivos";
+import { PickerInput } from "./PickerInput";
+import { DatePickerInput } from "./DatePickerInput";
 
 interface Props {
   data: AdvertenciaData;
@@ -28,87 +29,62 @@ export function AdvertenciaForm({ data, setData }: Props) {
         }
       />
 
-      <DateInput
+      <DatePickerInput
         label="Data de Admissão"
         value={data.admissao}
-        onChange={(date) =>
+        onChange={(admissao) =>
           setData({
             ...data,
-            admissao: date,
+            admissao,
           })
         }
       />
 
-      <Text
-        style={{
-          fontSize: 14,
-          fontWeight: "600",
-          color: "#334155",
-          marginTop: 16,
-          marginBottom: 8,
-        }}
-      >
-        Tipo de Documento
-      </Text>
+      <PickerInput
+        label="Tipo de Documento"
+        value={data.tipoDocumento}
+        options={[
+          {
+            label: "Advertência",
+            value: "ADVERTENCIA",
+          },
+          {
+            label: "Suspensão",
+            value: "SUSPENSAO",
+          },
+        ]}
+        onValueChange={(tipoDocumento) =>
+          setData({
+            ...data,
+            tipoDocumento,
+          })
+        }
+      />
 
-      <View
-        style={{
-          borderWidth: 1,
-          borderColor: "#CBD5E1",
-          borderRadius: 10,
-          overflow: "hidden",
-          backgroundColor: "#FFFFFF",
-        }}
-      >
-        <Picker
-          selectedValue={data.tipoDocumento}
-          onValueChange={(value) =>
-            setData({
-              ...data,
-              tipoDocumento: value,
-            })
-          }
-        >
-          <Picker.Item label="Advertência" value="ADVERTENCIA" />
-          <Picker.Item label="Suspensão" value="SUSPENSAO" />
-        </Picker>
-      </View>
-
-      <Text
-        style={{
-          fontSize: 14,
-          fontWeight: "600",
-          color: "#334155",
-          marginTop: 16,
-          marginBottom: 8,
-        }}
-      >
-        Número da Medida
-      </Text>
-
-      <View
-        style={{
-          borderWidth: 1,
-          borderColor: "#CBD5E1",
-          borderRadius: 10,
-          overflow: "hidden",
-          backgroundColor: "#FFFFFF",
-        }}
-      >
-        <Picker
-          selectedValue={data.numeroAdvertencia}
-          onValueChange={(value) =>
-            setData({
-              ...data,
-              numeroAdvertencia: value,
-            })
-          }
-        >
-          <Picker.Item label="1ª Advertência" value={1} />
-          <Picker.Item label="2ª Advertência" value={2} />
-          <Picker.Item label="3ª Advertência" value={3} />
-        </Picker>
-      </View>
+      <PickerInput
+        label="Número"
+        value={data.numeroAdvertencia}
+        options={[
+          {
+            label: "1ª Advertência",
+            value: 1,
+          },
+          {
+            label: "2ª Advertência",
+            value: 2,
+          },
+          {
+            label: "3ª Advertência",
+            value: 3,
+          },
+        ]}
+        onValueChange={(numeroAdvertencia) =>
+          setData({
+            ...data,
+            numeroAdvertencia,
+          })
+        }
+      />
 
       <MotivosSelector
         motivos={motivosAdvertencia}
@@ -121,7 +97,7 @@ export function AdvertenciaForm({ data, setData }: Props) {
         }
       />
 
-      <DateInput
+      <DatePickerInput
         label="Data do Ocorrido"
         value={data.dataOcorrido}
         onChange={(date) =>
@@ -132,7 +108,7 @@ export function AdvertenciaForm({ data, setData }: Props) {
         }
       />
 
-      <DateInput
+      <DatePickerInput
         label="Data da Assinatura"
         value={data.dataAssinatura}
         onChange={(date) =>
