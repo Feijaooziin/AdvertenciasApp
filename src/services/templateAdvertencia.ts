@@ -1,6 +1,4 @@
 import { AdvertenciaData } from "../types/advertencia";
-import * as FileSystem from "expo-file-system/legacy";
-import { Asset } from "expo-asset";
 
 export function gerarHtmlAdvertencia(
   data: AdvertenciaData,

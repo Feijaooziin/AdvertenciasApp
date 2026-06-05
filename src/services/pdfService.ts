@@ -5,6 +5,21 @@ import { Asset } from "expo-asset";
 import { AdvertenciaData } from "../types/advertencia";
 import { gerarHtmlAdvertencia } from "./templateAdvertencia";
 
+function gerarNomeArquivo(data: AdvertenciaData) {
+  const tipo =
+    data.tipoDocumento === "ADVERTENCIA"
+      ? `${data.numeroAdvertencia}ª Advertencia`
+      : `${data.numeroAdvertencia}ª Suspensao`;
+
+  const funcionario = data.funcionario.trim().replace(/\s+/g, " ");
+
+  const motivo = data.motivos.length > 0 ? data.motivos[0] : "SemMotivo";
+
+  const motivoFormatado = motivo.replace(/[^\w\s]/g, "").replace(/\s+/g, "_");
+
+  return `${tipo} ${funcionario} ${motivoFormatado}.pdf`;
+}
+
 export async function gerarPDF(data: AdvertenciaData) {
   async function carregarLogoBase64() {
     const asset = Asset.fromModule(require("../../assets/images/logo.png"));
@@ -26,7 +41,9 @@ export async function gerarPDF(data: AdvertenciaData) {
     html,
   });
 
-  const filePath = FileSystem.documentDirectory + "advertencia.pdf";
+  const nomeArquivo = gerarNomeArquivo(data);
+
+  const filePath = FileSystem.documentDirectory + nomeArquivo;
 
   await FileSystem.moveAsync({
     from: uri,
