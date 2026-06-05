@@ -10,11 +10,19 @@ interface Props {
 
 export function AdvertenciaForm({ data, setData }: Props) {
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.label}>Funcionário</Text>
+    <ScrollView contentContainerStyle={{ padding: 16 }}>
+      <Text
+        style={{
+          fontSize: 16,
+          fontWeight: "600",
+          marginBottom: 4,
+        }}
+      >
+        Funcionário
+      </Text>
 
       <TextInput
-        style={styles.input}
+        style={{ borderWidth: 1, borderRadius: 8, padding: 12 }}
         value={data.funcionario}
         onChangeText={(text) =>
           setData({
@@ -24,7 +32,16 @@ export function AdvertenciaForm({ data, setData }: Props) {
         }
       />
 
-      <Text style={styles.label}>Tipo de Documento</Text>
+      <Text
+        style={{
+          fontSize: 16,
+          marginBottom: 4,
+          marginTop: 12,
+          fontWeight: "600",
+        }}
+      >
+        Tipo de Documento
+      </Text>
 
       <Picker
         selectedValue={data.tipoDocumento}
@@ -40,7 +57,16 @@ export function AdvertenciaForm({ data, setData }: Props) {
         <Picker.Item label="Suspensão" value="SUSPENSAO" />
       </Picker>
 
-      <Text style={styles.label}>Número</Text>
+      <Text
+        style={{
+          fontSize: 16,
+          marginBottom: 4,
+          marginTop: 12,
+          fontWeight: "600",
+        }}
+      >
+        Número
+      </Text>
 
       <Picker
         selectedValue={data.numeroAdvertencia}
@@ -58,10 +84,19 @@ export function AdvertenciaForm({ data, setData }: Props) {
         <Picker.Item label="3ª" value={3} />
       </Picker>
 
-      <Text style={styles.label}>Observações</Text>
+      <Text
+        style={{
+          fontSize: 16,
+          marginBottom: 4,
+          marginTop: 12,
+          fontWeight: "600",
+        }}
+      >
+        Observações
+      </Text>
 
       <TextInput
-        style={[styles.input, { height: 120 }]}
+        style={{ borderWidth: 1, borderRadius: 8, padding: 12, height: 120 }}
         multiline
         value={data.observacoes}
         onChangeText={(text) =>
@@ -74,22 +109,3 @@ export function AdvertenciaForm({ data, setData }: Props) {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-  },
-
-  label: {
-    fontSize: 16,
-    marginBottom: 4,
-    marginTop: 12,
-    fontWeight: "600",
-  },
-
-  input: {
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 12,
-  },
-});

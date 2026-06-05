@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SafeAreaView } from "react-native";
+import { View } from "react-native";
 
 import { AdvertenciaData } from "../types/advertencia";
 import { AdvertenciaForm } from "../components/AdvertenciaForm";
@@ -15,8 +15,8 @@ export default function Home() {
   });
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       <AdvertenciaForm data={data} setData={setData} />
-    </SafeAreaView>
+    </View>
   );
 }
