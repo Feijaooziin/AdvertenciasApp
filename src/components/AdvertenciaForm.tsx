@@ -4,6 +4,8 @@ import { Picker } from "@react-native-picker/picker";
 import { AdvertenciaData } from "../types/advertencia";
 import { Input } from "./Input";
 import { DateInput } from "./DateInput";
+import { motivosAdvertencia } from "../data/motivos";
+import { MotivosSelector } from "./MotivosSelector";
 
 interface Props {
   data: AdvertenciaData;
@@ -85,6 +87,17 @@ export function AdvertenciaForm({ data, setData }: Props) {
         <Picker.Item label="3ª" value={3} />
       </Picker>
 
+      <MotivosSelector
+        motivos={motivosAdvertencia}
+        selecionados={data.motivos}
+        onChange={(motivos) =>
+          setData({
+            ...data,
+            motivos,
+          })
+        }
+      />
+
       <DateInput
         label="Data do Ocorrido"
         value={data.dataOcorrido}
@@ -142,6 +155,16 @@ export function AdvertenciaForm({ data, setData }: Props) {
           })
         }
       />
+
+      <Text
+        style={{
+          marginTop: 20,
+        }}
+      >
+        Motivos selecionados:
+      </Text>
+
+      <Text>{data.motivos.join(", ")}</Text>
     </ScrollView>
   );
 }
