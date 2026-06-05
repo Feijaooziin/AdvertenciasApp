@@ -57,12 +57,15 @@ export function DatePickerInput({
           value={value ?? new Date()}
           mode="date"
           display={Platform.OS === "ios" ? "spinner" : "default"}
-          onChange={(_, selectedDate) => {
+          onValueChange={(selectedDate) => {
             setShow(false);
 
             if (selectedDate) {
               onChange(selectedDate);
             }
+          }}
+          onDismiss={() => {
+            setShow(false);
           }}
         />
       )}
