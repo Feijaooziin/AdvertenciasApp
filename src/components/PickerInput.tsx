@@ -47,6 +47,11 @@ export function PickerInput<T extends string | number>({
       >
         <Picker
           selectedValue={value}
+          dropdownIconColor="#64748B"
+          style={{
+            color: "#0F172A",
+            backgroundColor: "#FFFFFF",
+          }}
           onValueChange={(itemValue) => onValueChange(itemValue as T)}
         >
           {options.map((option) => (
