@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { AdvertenciaData } from "../types/advertencia";
+import { Input } from "./Input";
 
 interface Props {
   data: AdvertenciaData;
@@ -11,19 +12,10 @@ interface Props {
 export function AdvertenciaForm({ data, setData }: Props) {
   return (
     <ScrollView contentContainerStyle={{ padding: 16 }}>
-      <Text
-        style={{
-          fontSize: 16,
-          fontWeight: "600",
-          marginBottom: 4,
-        }}
-      >
-        Funcionário
-      </Text>
-
-      <TextInput
-        style={{ borderWidth: 1, borderRadius: 8, padding: 12 }}
+      <Input
+        label="Funcionário"
         value={data.funcionario}
+        placeholder="Nome do colaborador"
         onChangeText={(text) =>
           setData({
             ...data,
@@ -95,14 +87,27 @@ export function AdvertenciaForm({ data, setData }: Props) {
         Observações
       </Text>
 
-      <TextInput
-        style={{ borderWidth: 1, borderRadius: 8, padding: 12, height: 120 }}
-        multiline
+      <Input
+        label="Observações"
         value={data.observacoes}
+        multiline
+        placeholder="Observações adicionais"
         onChangeText={(text) =>
           setData({
             ...data,
             observacoes: text,
+          })
+        }
+      />
+
+      <Input
+        label="Cidade"
+        value={data.cidade}
+        placeholder="Ex: Pinhais"
+        onChangeText={(text) =>
+          setData({
+            ...data,
+            cidade: text,
           })
         }
       />
