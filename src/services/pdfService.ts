@@ -1,46 +1,39 @@
-import React from "react";
-
+import * as Print from "expo-print";
 import * as FileSystem from "expo-file-system/legacy";
-import { pdf } from "@react-pdf/renderer";
-import { AdvertenciaPDF } from "../components/AdvertenciaPDF";
+
 import { AdvertenciaData } from "../types/advertencia";
 
-export async function gerarPDF(
-  data: AdvertenciaData
-) {
-  const blob = await pdf(
-    <AdvertenciaPDF data={data} />
-  ).toBlob();
+export async function gerarPDF(data: AdvertenciaData) {
+  const html = `
+    <html>
+      <body style="font-family: Arial; padding: 20px;">
+        <h2>Advertência</h2>
 
-  const reader = new FileReader();
+        <p><b>Funcionário:</b> ${data.funcionario}</p>
+        <p><b>Tipo:</b> ${data.tipoDocumento}</p>
+        <p><b>Número:</b> ${data.numeroAdvertencia}</p>
 
-  return new Promise<string>(
-    (resolve, reject) => {
-      reader.onloadend = async () => {
-        try {
-          const base64 = (
-            reader.result as string
-          ).split(",")[1];
+        <p><b>Motivos:</b></p>
+        <ul>
+          ${data.motivos.map((m) => `<li>${m}</li>`).join("")}
+        </ul>
 
-          const filePath =
-            `${FileSystem.documentDirectory}advertencia.pdf`;
+        <p><b>Data Ocorrido:</b> ${data.dataOcorrido.toLocaleDateString()}</p>
+        <p><b>Assinatura:</b> ${data.dataAssinatura.toLocaleDateString()}</p>
+      </body>
+    </html>
+  `;
 
-          await FileSystem.writeAsStringAsync(
-            filePath,
-            base64,
-            {
-              encoding:
-                FileSystem.EncodingType.Base64,
-            }
-          );
+  const { uri } = await Print.printToFileAsync({
+    html,
+  });
 
-          resolve(filePath);
-        } catch (error) {
-          reject(error);
-        }
-      };
+  const filePath = FileSystem.documentDirectory + "advertencia.pdf";
 
-      reader.readAsDataURL(blob);
-    }
-  );
+  await FileSystem.moveAsync({
+    from: uri,
+    to: filePath,
+  });
+
+  return filePath;
 }
