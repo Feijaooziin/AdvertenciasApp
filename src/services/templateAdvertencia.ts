@@ -60,6 +60,58 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
         padding: 10px;
         text-align: justify;
       }
+
+    .assinaturas {
+    margin-top: 60px;
+    display: table;
+    width: 100%;
+    }
+
+    .assinatura {
+    display: table-cell;
+    width: 50%;
+    text-align: center;
+    vertical-align: top;
+    }
+
+    .linha {
+    border-top: 1px solid #000;
+    width: 90%;
+    margin: 0 auto;
+    }
+
+    .nome-assinatura {
+    border: 1px solid #000;
+    border-top: none;
+    padding: 4px;
+    font-weight: bold;
+    }
+
+    .cargo-assinatura {
+    border: 1px solid #000;
+    border-top: none;
+    padding: 4px;
+    font-size: 10px;
+    }
+
+    .testemunhas {
+    margin-top: 50px;
+    display: table;
+    width: 100%;
+    }
+
+    .testemunha {
+    display: table-cell;
+    width: 50%;
+    text-align: center;
+    }
+
+    .lgpd {
+    margin-top: 40px;
+    font-size: 9px;
+    text-align: justify;
+    line-height: 1.4;
+    }
     </style>
   </head>
 
@@ -118,6 +170,83 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
           ${data.motivos.map((motivo) => `<li>${motivo}</li>`).join("")}
         </ul>
       </div>
+
+    <div class="box">
+    Em face de seu proceder, estamos lhe aplicando a
+    ${data.numeroAdvertencia}ª
+    ${data.tipoDocumento.toLowerCase()}
+    em razão dos fatos descritos acima,
+    ocorridos em
+    ${data.dataOcorrido.toLocaleDateString("pt-BR")}.
+    </div>
+
+    <div class="box">
+    A presente medida tem por finalidade orientá-lo
+    quanto ao cumprimento das normas internas da empresa,
+    ficando ciente de que a repetição de procedimentos
+    semelhantes poderá acarretar medidas disciplinares
+    mais severas, inclusive dispensa por justa causa,
+    nos termos da legislação trabalhista vigente.
+    </div>  
+
+    <p style="margin-top:40px;">
+  ${data.cidade || "Pinhais"},
+  ${data.dataAssinatura.toLocaleDateString("pt-BR")}
+</p>
+
+<div class="assinaturas">
+
+  <div class="assinatura">
+    <div class="linha"></div>
+
+    <div class="nome-assinatura">
+      COMFRIO TRANSPORTES EIRELI
+    </div>
+
+    <div class="cargo-assinatura">
+      EMPREGADOR
+    </div>
+  </div>
+
+  <div class="assinatura">
+    <div class="linha"></div>
+
+    <div class="nome-assinatura">
+      ${data.funcionario}
+    </div>
+
+    <div class="cargo-assinatura">
+      EMPREGADO
+    </div>
+  </div>
+
+</div>
+
+<div class="testemunhas">
+
+  <div class="testemunha">
+    <div class="linha"></div>
+
+    <p>TESTEMUNHA</p>
+  </div>
+
+  <div class="testemunha">
+    <div class="linha"></div>
+
+    <p>TESTEMUNHA</p>
+  </div>
+
+</div>
+
+<div class="lgpd">
+  Nós da COMFRIO valorizamos a privacidade e a
+  proteção dos seus dados pessoais. As informações
+  contidas neste documento serão utilizadas
+  exclusivamente para fins de registro e aplicação
+  da medida disciplinar, observando os princípios
+  estabelecidos pela Lei Geral de Proteção de Dados
+  Pessoais (LGPD).
+</div>
 
     </div>
   </body>
