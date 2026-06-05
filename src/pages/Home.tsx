@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, Alert, Pressable, Text, ScrollView } from "react-native";
 import * as Sharing from "expo-sharing";
 import { Ionicons } from "@expo/vector-icons";
+import { StatusBar } from "react-native";
 
 import { AdvertenciaForm } from "../components/AdvertenciaForm";
 import { gerarPDF } from "../services/pdfService";
@@ -97,29 +98,40 @@ export default function Home() {
     >
       <View
         style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 12,
+          paddingTop: (StatusBar.currentHeight ?? 0) + 20,
           paddingHorizontal: 20,
-          paddingTop: 24,
+          paddingBottom: 20,
+          backgroundColor: "#FFFFFF",
+          borderBottomWidth: 1,
+          borderBottomColor: "#E2E8F0",
         }}
       >
-        <Text
-          style={{
-            fontSize: 28,
-            fontWeight: "700",
-            color: "#0F172A",
-          }}
-        >
-          Advertências
-        </Text>
+        <View>
+          <Text
+            style={{
+              fontSize: 28,
+              fontWeight: "700",
+              color: "#0F172A",
+            }}
+          >
+            Advertências
+          </Text>
 
-        <Text
-          style={{
-            fontSize: 14,
-            color: "#64748B",
-            marginTop: 4,
-          }}
-        >
-          Gere advertências e suspensões em PDF.
-        </Text>
+          <Text
+            style={{
+              fontSize: 14,
+              color: "#64748B",
+              marginTop: 4,
+            }}
+          >
+            Gere advertências e suspensões em PDF.
+          </Text>
+        </View>
+        <Ionicons name="document-text-outline" size={48} color="#2563EB" />
       </View>
 
       <View
