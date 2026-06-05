@@ -70,7 +70,6 @@ export function AdvertenciaForm({ data, setData }: Props) {
           }
         >
           <Picker.Item label="Advertência" value="ADVERTENCIA" />
-
           <Picker.Item label="Suspensão" value="SUSPENSAO" />
         </Picker>
       </View>
@@ -106,9 +105,7 @@ export function AdvertenciaForm({ data, setData }: Props) {
           }
         >
           <Picker.Item label="1ª Advertência" value={1} />
-
           <Picker.Item label="2ª Advertência" value={2} />
-
           <Picker.Item label="3ª Advertência" value={3} />
         </Picker>
       </View>
