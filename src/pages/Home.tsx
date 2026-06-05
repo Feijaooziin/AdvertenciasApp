@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { View, Alert, Pressable, Text } from "react-native";
+import { View, Alert, Pressable, Text, ScrollView } from "react-native";
 import * as Sharing from "expo-sharing";
 
-import { AdvertenciaData } from "../types/advertencia";
 import { AdvertenciaForm } from "../components/AdvertenciaForm";
 import { gerarPDF } from "../services/pdfService";
+import { AdvertenciaData } from "../types/advertencia";
 
 export default function Home() {
   const [data, setData] = useState<AdvertenciaData>({
@@ -19,11 +19,13 @@ export default function Home() {
   const validarFormulario = () => {
     if (!data.funcionario.trim()) {
       Alert.alert("Campo obrigatório", "Informe o nome do funcionário.");
+
       return false;
     }
 
     if (data.motivos.length === 0) {
       Alert.alert("Campo obrigatório", "Selecione pelo menos um motivo.");
+
       return false;
     }
 
@@ -51,34 +53,81 @@ export default function Home() {
   };
 
   return (
-    <View
+    <ScrollView
+      contentContainerStyle={{
+        paddingBottom: 40,
+      }}
       style={{
         flex: 1,
         backgroundColor: "#F8FAFC",
       }}
     >
-      <AdvertenciaForm data={data} setData={setData} />
-      <Pressable
-        onPress={handleGerarDocumento}
+      <View
         style={{
-          backgroundColor: "#2563EB",
-          padding: 14,
-          borderRadius: 8,
-          alignItems: "center",
-          marginTop: 20,
-          marginBottom: 40,
+          paddingHorizontal: 20,
+          paddingTop: 24,
         }}
       >
         <Text
           style={{
-            color: "#FFF",
-            fontWeight: "600",
-            fontSize: 16,
+            fontSize: 28,
+            fontWeight: "700",
+            color: "#0F172A",
           }}
         >
-          Gerar Documento
+          Advertências
+        </Text>
+
+        <Text
+          style={{
+            fontSize: 14,
+            color: "#64748B",
+            marginTop: 4,
+          }}
+        >
+          Gere advertências e suspensões em PDF.
+        </Text>
+      </View>
+
+      <View
+        style={{
+          backgroundColor: "#FFFFFF",
+          marginHorizontal: 16,
+          marginTop: 20,
+          borderRadius: 16,
+          padding: 16,
+          shadowColor: "#000",
+          shadowOpacity: 0.08,
+          shadowRadius: 8,
+          elevation: 2,
+        }}
+      >
+        <AdvertenciaForm data={data} setData={setData} />
+      </View>
+
+      <Pressable
+        onPress={handleGerarDocumento}
+        style={{
+          backgroundColor: "#2563EB",
+          marginHorizontal: 16,
+          marginTop: 20,
+          paddingVertical: 16,
+          borderRadius: 12,
+          alignItems: "center",
+        }}
+      >
+        <Text
+          style={{
+            color: "#FFFFFF",
+            fontSize: 16,
+            fontWeight: "700",
+          }}
+        >
+          {data.tipoDocumento === "ADVERTENCIA"
+            ? "Gerar Advertência"
+            : "Gerar Suspensão"}
         </Text>
       </Pressable>
-    </View>
+    </ScrollView>
   );
 }
