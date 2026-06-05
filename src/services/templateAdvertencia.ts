@@ -6,18 +6,6 @@ export function gerarHtmlAdvertencia(
   data: AdvertenciaData,
   logoBase64: string,
 ) {
-  async function carregarLogoBase64() {
-    const asset = Asset.fromModule(
-      require("../../assets/images/comfrio-logo.png"),
-    );
-
-    await asset.downloadAsync();
-
-    return await FileSystem.readAsStringAsync(asset.localUri!, {
-      encoding: FileSystem.EncodingType.Base64,
-    });
-  }
-
   return `
     <!DOCTYPE html>
     <html lang="pt-BR">
