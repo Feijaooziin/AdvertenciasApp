@@ -28,6 +28,27 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
             height: 60px;
           }
 
+          .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            }
+
+          .header-table td {
+            border: 1px solid #000;
+          }
+
+          .logo-cell {
+            width: 200px;
+            height: 70px;
+          }
+
+          .title-cell {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+          }
+
           .logo {
             width: 150px;
             border-right: 1px solid #000;
@@ -49,11 +70,12 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
 
           .table td {
             border: 1px solid #000;
-            padding: 6px;
+            padding: 4px 6px;
+            font-size: 11px;
           }
 
           .label {
-            width: 120px;
+            width: 130px;
             font-weight: bold;
           }
 
@@ -64,7 +86,7 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
           }
 
           .assinaturas {
-            margin-top: 80px;
+            margin-top: 120px;
             display: table;
             width: 100%;
           }
@@ -83,15 +105,11 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
           }
 
           .nome-assinatura {
-            border: 1px solid #000;
-            border-top: none;
             padding: 4px;
             font-weight: bold;
           }
 
           .cargo-assinatura {
-            border: 1px solid #000;
-            border-top: none;
             padding: 4px;
             font-size: 10px;
           }
@@ -127,13 +145,21 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
       <body>
         <div class="container">
             <div class="conteudo">
-                <div class="header">
-                    <div class="logo"></div>
+                <table class="header-table">
+                    <tr>
+                        <td class="logo-cell">
+                        <!-- Logo aqui futuramente -->
+                        </td>
 
-                    <div class="titulo">
-                    ${data.tipoDocumento}
-                    </div>
-                </div>
+                        <td class="title-cell">
+                        ${
+                          data.tipoDocumento === "ADVERTENCIA"
+                            ? "ADVERTÊNCIA DISCIPLINAR"
+                            : "SUSPENSÃO DISCIPLINAR"
+                        }
+                        </td>
+                    </tr>
+                </table>
 
                 <table class="table">
                     <tr>
@@ -173,23 +199,34 @@ export function gerarHtmlAdvertencia(data: AdvertenciaData) {
 
                 <div class="box">
                     Na conformidade da Consolidação das Leis do Trabalho,
-                    fica aplicada a medida disciplinar abaixo descrita.
+                    fica aderida a ${
+                      data.tipoDocumento === "ADVERTENCIA"
+                        ? "advertência"
+                        : "suspensão"
+                    } pela falta abaixo discriminada:
                 </div>
 
                 <div class="box">
-                    Motivos:
+                    <strong>Motivos:</strong>
 
-                    <ul>
+                    <ul style="margin-top: 8px;">
                     ${data.motivos.map((motivo) => `<li>${motivo}</li>`).join("")}
                     </ul>
                 </div>
 
                 <div class="box">
-                    Em face de seu proceder, estamos lhe aplicando a
+                    Em face de seu proceder, neste momento estamos lhe aplicando a
                     ${data.numeroAdvertencia}ª
-                    ${data.tipoDocumento.toLowerCase()}
-                    em razão dos fatos descritos acima,
-                    ocorridos em
+                    ${
+                      data.tipoDocumento === "ADVERTENCIA"
+                        ? "advertência"
+                        : "suspensão"
+                    }
+                    em razão de:
+
+                    ${data.motivos.join(", ")}.
+
+                    Referente ao ocorrido em
                     ${data.dataOcorrido.toLocaleDateString("pt-BR")}.
                 </div>
 
