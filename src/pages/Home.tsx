@@ -56,10 +56,15 @@ export default function Home() {
       if (disponivel) {
         await Sharing.shareAsync(caminho);
       }
-    } catch (error) {
-      console.error(error);
+      // } catch (error) {
+      //   console.error(error);
 
-      Alert.alert("Erro", "Não foi possível gerar o PDF.");
+      //   Alert.alert("Erro", "Não foi possível gerar o PDF.");
+      // }
+    } catch (error: any) {
+      console.log(error);
+
+      Alert.alert("Erro", error?.message || String(error));
     }
   };
 

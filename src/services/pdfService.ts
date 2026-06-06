@@ -27,11 +27,21 @@ function gerarNomeArquivo(data: AdvertenciaData) {
 
 export async function gerarPDF(data: AdvertenciaData) {
   async function carregarLogoBase64() {
+    // const asset = Asset.fromModule(require("../../assets/images/logo.png"));
+
+    // await asset.downloadAsync();
+
+    // return await FileSystem.readAsStringAsync(asset.localUri!, {
+    //   encoding: FileSystem.EncodingType.Base64,
+    // });
+
     const asset = Asset.fromModule(require("../../assets/images/logo.png"));
 
     await asset.downloadAsync();
 
-    return await FileSystem.readAsStringAsync(asset.localUri!, {
+    const uri = asset.localUri ?? asset.uri;
+
+    return await FileSystem.readAsStringAsync(uri, {
       encoding: FileSystem.EncodingType.Base64,
     });
   }

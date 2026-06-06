@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { ScrollView, Text, View } from "react-native";
-import { Picker } from "@react-native-picker/picker";
+import { ScrollView } from "react-native";
 
 import { AdvertenciaData } from "../types/advertencia";
 import { Input } from "./Input";
