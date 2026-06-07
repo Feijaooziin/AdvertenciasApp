@@ -29,6 +29,7 @@ export function AdvertenciaForm({ data, setData }: Props) {
     <ScrollView showsVerticalScrollIndicator={false}>
       <Input
         label="Funcionário"
+        required
         value={data.funcionario}
         placeholder="Nome completo do funcionário"
         onChangeText={(text) => updateField("funcionario", text)}
