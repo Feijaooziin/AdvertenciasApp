@@ -19,6 +19,10 @@ export function PickerInput<T extends string | number>({
   options,
   onValueChange,
 }: PickerInputProps<T>) {
+  function handleValueChange(itemValue: unknown) {
+    onValueChange(itemValue as T);
+  }
+
   return (
     <View
       style={{
@@ -52,14 +56,10 @@ export function PickerInput<T extends string | number>({
             color: "#0F172A",
             backgroundColor: "#FFFFFF",
           }}
-          onValueChange={(itemValue) => onValueChange(itemValue as T)}
+          onValueChange={handleValueChange}
         >
-          {options.map((option) => (
-            <Picker.Item
-              key={String(option.value)}
-              label={option.label}
-              value={option.value}
-            />
+          {options.map(({ label, value }) => (
+            <Picker.Item key={String(value)} label={label} value={value} />
           ))}
         </Picker>
       </View>

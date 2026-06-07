@@ -1,20 +1,10 @@
-import { Text, TextInput, View } from "react-native";
+import { Text, TextInput, View, TextInputProps } from "react-native";
 
-interface InputProps {
+interface InputProps extends TextInputProps {
   label: string;
-  value?: string;
-  placeholder?: string;
-  multiline?: boolean;
-  onChangeText: (text: string) => void;
 }
 
-export function Input({
-  label,
-  value,
-  placeholder,
-  multiline,
-  onChangeText,
-}: InputProps) {
+export function Input({ label, multiline = false, ...rest }: InputProps) {
   return (
     <View
       style={{
@@ -33,11 +23,9 @@ export function Input({
       </Text>
 
       <TextInput
-        value={value}
-        placeholder={placeholder}
-        placeholderTextColor="#94A3B8"
+        {...rest}
         multiline={multiline}
-        onChangeText={onChangeText}
+        placeholderTextColor="#94A3B8"
         style={{
           borderWidth: 1,
           borderColor: "#CBD5E1",

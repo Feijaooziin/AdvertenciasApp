@@ -2,11 +2,12 @@ import { Dispatch, SetStateAction } from "react";
 import { ScrollView } from "react-native";
 
 import { AdvertenciaData } from "../types/advertencia";
-import { Input } from "./Input";
-import { MotivosSelector } from "./MotivosSelector";
 import { motivosAdvertencia } from "../data/motivos";
+
+import { Input } from "./Input";
 import { PickerInput } from "./PickerInput";
 import { DatePickerInput } from "./DatePickerInput";
+import { MotivosSelector } from "./MotivosSelector";
 
 interface Props {
   data: AdvertenciaData;
@@ -14,29 +15,29 @@ interface Props {
 }
 
 export function AdvertenciaForm({ data, setData }: Props) {
+  function updateField<K extends keyof AdvertenciaData>(
+    field: K,
+    value: AdvertenciaData[K],
+  ) {
+    setData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  }
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Input
         label="Funcionário"
         value={data.funcionario}
         placeholder="Nome completo do funcionário"
-        onChangeText={(text) =>
-          setData({
-            ...data,
-            funcionario: text,
-          })
-        }
+        onChangeText={(text) => updateField("funcionario", text)}
       />
 
       <DatePickerInput
         label="Data de Admissão"
         value={data.admissao}
-        onChange={(admissao) =>
-          setData({
-            ...data,
-            admissao,
-          })
-        }
+        onChange={(date) => updateField("admissao", date)}
       />
 
       <PickerInput
@@ -52,12 +53,7 @@ export function AdvertenciaForm({ data, setData }: Props) {
             value: "SUSPENSAO",
           },
         ]}
-        onValueChange={(tipoDocumento) =>
-          setData({
-            ...data,
-            tipoDocumento,
-          })
-        }
+        onValueChange={(value) => updateField("tipoDocumento", value)}
       />
 
       <PickerInput
@@ -77,45 +73,25 @@ export function AdvertenciaForm({ data, setData }: Props) {
             value: 3,
           },
         ]}
-        onValueChange={(numeroAdvertencia) =>
-          setData({
-            ...data,
-            numeroAdvertencia,
-          })
-        }
+        onValueChange={(value) => updateField("numeroAdvertencia", value)}
       />
 
       <MotivosSelector
         motivos={motivosAdvertencia}
         selecionados={data.motivos}
-        onChange={(motivos) =>
-          setData({
-            ...data,
-            motivos,
-          })
-        }
+        onChange={(motivos) => updateField("motivos", motivos)}
       />
 
       <DatePickerInput
         label="Data do Ocorrido"
         value={data.dataOcorrido}
-        onChange={(date) =>
-          setData({
-            ...data,
-            dataOcorrido: date,
-          })
-        }
+        onChange={(date) => updateField("dataOcorrido", date)}
       />
 
       <DatePickerInput
         label="Data da Assinatura"
         value={data.dataAssinatura}
-        onChange={(date) =>
-          setData({
-            ...data,
-            dataAssinatura: date,
-          })
-        }
+        onChange={(date) => updateField("dataAssinatura", date)}
       />
 
       <Input
@@ -123,24 +99,14 @@ export function AdvertenciaForm({ data, setData }: Props) {
         value={data.observacoes}
         placeholder="Informações adicionais (opcional)"
         multiline
-        onChangeText={(text) =>
-          setData({
-            ...data,
-            observacoes: text,
-          })
-        }
+        onChangeText={(text) => updateField("observacoes", text)}
       />
 
       <Input
         label="Cidade"
         value={data.cidade}
         placeholder="Cidade da assinatura"
-        onChangeText={(text) =>
-          setData({
-            ...data,
-            cidade: text,
-          })
-        }
+        onChangeText={(text) => updateField("cidade", text)}
       />
     </ScrollView>
   );

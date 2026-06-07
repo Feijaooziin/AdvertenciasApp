@@ -5,24 +5,23 @@ import { AdvertenciaData } from "../types/advertencia";
 import { gerarHtmlAdvertencia } from "./templateAdvertencia";
 import { logoBase64 } from "../data/logoBase64";
 
-function gerarNomeArquivo(data: AdvertenciaData) {
-  const tipo =
-    data.tipoDocumento === "ADVERTENCIA"
-      ? `${data.numeroAdvertencia}ª Advertencia`
-      : `${data.numeroAdvertencia}ª Suspensao`;
-
-  const funcionario = data.funcionario
+function normalizarTexto(texto: string) {
+  return texto
     .trim()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toUpperCase()
     .replace(/\s+/g, " ");
+}
 
-  const motivo = data.motivos.length > 0 ? data.motivos[0] : "SemMotivo";
+function gerarNomeArquivo(data: AdvertenciaData) {
+  const documento =
+    data.tipoDocumento === "ADVERTENCIA" ? "Advertencia" : "Suspensao";
 
+  const funcionario = normalizarTexto(data.funcionario);
+  const motivo = data.motivos[0] ?? "SemMotivo";
   const motivoFormatado = motivo.replace(/[^\w\s]/g, "").replace(/\s+/g, "_");
-
-  return `${tipo} ${funcionario} ${motivoFormatado}.pdf`;
+  return `${data.numeroAdvertencia}ª ${documento} ${funcionario} ${motivoFormatado}.pdf`;
 }
 
 export async function gerarPDF(data: AdvertenciaData) {
@@ -36,7 +35,6 @@ export async function gerarPDF(data: AdvertenciaData) {
   });
 
   const nomeArquivo = gerarNomeArquivo(data);
-
   const filePath = FileSystem.documentDirectory + nomeArquivo;
 
   await FileSystem.moveAsync({

@@ -14,7 +14,27 @@ export function DatePickerInput({
   value,
   onChange,
 }: DatePickerInputProps) {
-  const [show, setShow] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const formattedDate = value
+    ? value.toLocaleDateString("pt-BR")
+    : "Selecione uma data";
+
+  function handleOpen() {
+    setIsOpen(true);
+  }
+
+  function handleDismiss() {
+    setIsOpen(false);
+  }
+
+  function handleChange(_: unknown, selectedDate?: Date) {
+    setIsOpen(false);
+
+    if (selectedDate) {
+      onChange(selectedDate);
+    }
+  }
 
   return (
     <View
@@ -34,7 +54,7 @@ export function DatePickerInput({
       </Text>
 
       <Pressable
-        onPress={() => setShow(true)}
+        onPress={handleOpen}
         style={{
           borderWidth: 1,
           borderColor: "#CBD5E1",
@@ -48,25 +68,17 @@ export function DatePickerInput({
             color: value ? "#0F172A" : "#94A3B8",
           }}
         >
-          {value ? value.toLocaleDateString("pt-BR") : "Selecione uma data"}
+          {formattedDate}
         </Text>
       </Pressable>
 
-      {show && (
+      {isOpen && (
         <DateTimePicker
           value={value ?? new Date()}
           mode="date"
           display={Platform.OS === "ios" ? "spinner" : "default"}
-          onValueChange={(_, selectedDate) => {
-            setShow(false);
-
-            if (selectedDate) {
-              onChange(selectedDate);
-            }
-          }}
-          onDismiss={() => {
-            setShow(false);
-          }}
+          onValueChange={handleChange}
+          onDismiss={handleDismiss}
         />
       )}
     </View>

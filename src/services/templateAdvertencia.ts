@@ -5,7 +5,30 @@ export function gerarHtmlAdvertencia(
   logoBase64: string,
 ) {
   const funcionario = data.funcionario.trim().toUpperCase();
+
   const cidade = (data.cidade || "Pinhais").trim().toUpperCase();
+
+  const isAdvertencia = data.tipoDocumento === "ADVERTENCIA";
+
+  const documento = isAdvertencia
+    ? "ADVERTÊNCIA DISCIPLINAR"
+    : "SUSPENSÃO DISCIPLINAR";
+
+  const medida = isAdvertencia ? "advertência" : "suspensão";
+
+  const admissao = data.admissao
+    ? data.admissao.toLocaleDateString("pt-BR")
+    : "";
+
+  const dataOcorrido = data.dataOcorrido.toLocaleDateString("pt-BR");
+
+  const dataAssinatura = data.dataAssinatura.toLocaleDateString("pt-BR");
+
+  const motivosHtml = data.motivos
+    .map((motivo) => `<li>${motivo}</li>`)
+    .join("");
+
+  const motivosTexto = data.motivos.join(", ");
 
   return `
     <!DOCTYPE html>
@@ -28,11 +51,15 @@ export function gerarHtmlAdvertencia(
             box-sizing: border-box;
           }
 
+          .conteudo {
+            min-height: 620px;
+          }
+
           .header-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
-            }
+          }
 
           .header-table td {
             border: 1px solid #000;
@@ -101,41 +128,26 @@ export function gerarHtmlAdvertencia(
           }
 
           .nome-assinatura {
-            border-top: none;
             padding: 4px;
             font-weight: bold;
             font-size: 12pt;
           }
 
           .cargo-assinatura {
-            border-top: none;
             padding: 4px;
             font-size: 12pt;
           }
 
-          .testemunhas {
-            margin-top: 60px;
-            width: 100%;
-          }
-
-        .testemunhas-table {
+          .testemunhas-table {
             margin-top: 80px;
             width: 100%;
             border-collapse: collapse;
-        }
+          }
 
-        .testemunhas-table td {
+          .testemunhas-table td {
             width: 50%;
             text-align: center;
             vertical-align: top;
-        }
-
-          .testemunha {
-            display: table-cell;
-            width: 50%;
-            text-align: center;
-            vertical-align: top;
-            font-size: 12pt;
           }
 
           .lgpd {
@@ -147,122 +159,110 @@ export function gerarHtmlAdvertencia(
             text-align: justify;
             line-height: 1.3;
           }
-
-          .conteudo {
-            min-height: 620px;
-          }
         </style>
       </head>
 
       <body>
         <div class="container">
-            <div class="conteudo">
-                <table class="header-table">
-                    <tr>
-                        <td class="logo-cell">
-                            <img
-                                src="${logoBase64}"
-                                class="logo-img"
-                                alt="Logo"
-                            />
-                        </td>
+          <div class="conteudo">
 
-                        <td class="title-cell">
-                        ${
-                          data.tipoDocumento === "ADVERTENCIA"
-                            ? "ADVERTÊNCIA DISCIPLINAR"
-                            : "SUSPENSÃO DISCIPLINAR"
-                        }
-                        </td>
-                    </tr>
-                </table>
+            <table class="header-table">
+              <tr>
+                <td class="logo-cell">
+                  <img
+                    src="${logoBase64}"
+                    class="logo-img"
+                    alt="Logo"
+                  />
+                </td>
 
-                <table class="table">
-                    <tr>
-                    <td class="label">
-                        EMPREGADOR:
-                    </td>
+                <td class="title-cell">
+                  ${documento}
+                </td>
+              </tr>
+            </table>
 
-                    <td style="font-weight: bold">
-                        COMFRIO TRANSPORTES EIRELI
-                    </td>
-                    </tr>
+            <table class="table">
+              <tr>
+                <td class="label">
+                  EMPREGADOR:
+                </td>
 
-                    <tr>
-                    <td class="label">
-                        FUNCIONÁRIO:
-                    </td>
+                <td style="font-weight: bold">
+                  COMFRIO TRANSPORTES EIRELI
+                </td>
+              </tr>
 
-                    <td style="font-weight: bold">
-                        ${funcionario}
-                    </td>
-                    </tr>
+              <tr>
+                <td class="label">
+                  FUNCIONÁRIO:
+                </td>
 
-                    <tr>
-                    <td class="label">
-                        ADMISSÃO:
-                    </td>
+                <td style="font-weight: bold">
+                  ${funcionario}
+                </td>
+              </tr>
 
-                    <td>
-                        ${
-                          data.admissao
-                            ? data.admissao.toLocaleDateString("pt-BR")
-                            : ""
-                        }
-                    </td>
-                    </tr>
-                </table>
+              <tr>
+                <td class="label">
+                  ADMISSÃO:
+                </td>
 
-                <div class="box" style="margin-top: 50px;">
-                    Na conformidade da Consolidação das Leis do Trabalho,
-                    fica aderida a ${
-                      data.tipoDocumento === "ADVERTENCIA"
-                        ? "advertência"
-                        : "suspensão"
-                    } pela falta abaixo discriminada:
-                </div>
+                <td>
+                  ${admissao}
+                </td>
+              </tr>
+            </table>
 
-                <div class="box">
-                    <strong>Motivos:</strong>
-
-                    <ul style="margin-top: 8px;">
-                    ${data.motivos.map((motivo) => `<li>${motivo}</li>`).join("")}
-                    </ul>
-                </div>
-
-                <div class="box">
-                    Em face de seu proceder, neste momento estamos lhe aplicando a
-                    ${data.numeroAdvertencia}ª
-                    ${
-                      data.tipoDocumento === "ADVERTENCIA"
-                        ? "advertência"
-                        : "suspensão"
-                    }
-                    em razão de:
-
-                    ${data.motivos.join(", ")}.
-
-                    Referente ao ocorrido em
-                    ${data.dataOcorrido.toLocaleDateString("pt-BR")}.
-                </div>
-
-                <div class="box">
-                    A presente medida tem por finalidade orientá-lo
-                    quanto ao cumprimento das normas internas da empresa,
-                    ficando ciente de que a repetição de procedimentos
-                    semelhantes poderá acarretar medidas disciplinares
-                    mais severas, inclusive dispensa por justa causa,
-                    nos termos da legislação trabalhista vigente.
-                </div>
-
-                <p style="margin-top: 30px;">
-                    Favor dar seu ciente na cópia desta. <br>
-                    ${cidade},
-                    ${data.dataAssinatura.toLocaleDateString("pt-BR")}
-                </p>
+            <div
+              class="box"
+              style="margin-top: 50px;"
+            >
+              Na conformidade da Consolidação das Leis do Trabalho,
+              fica aderida a ${medida}
+              pela falta abaixo discriminada:
             </div>
 
+            <div class="box">
+              <strong>Motivos:</strong>
+
+              <ul style="margin-top: 8px;">
+                ${motivosHtml}
+              </ul>
+            </div>
+
+            <div class="box">
+              Em face de seu proceder, neste momento estamos lhe aplicando a
+              ${data.numeroAdvertencia}ª ${medida}
+              em razão de:
+
+              ${motivosTexto}.
+
+              Referente ao ocorrido em
+              ${dataOcorrido}.
+            </div>
+
+            <div class="box">
+              A presente medida tem por finalidade orientá-lo
+              quanto ao cumprimento das normas internas da empresa,
+              ficando ciente de que a repetição de procedimentos
+              semelhantes poderá acarretar medidas disciplinares
+              mais severas, inclusive dispensa por justa causa,
+              nos termos da legislação trabalhista vigente.
+            </div>
+
+            <p style="margin-top: 30px;">
+              Favor dar seu ciente na cópia desta.
+              <br />
+
+              ${cidade},
+              ${dataAssinatura}
+            </p>
+
+          </div>
+
           <div class="assinaturas">
+
             <div class="assinatura">
               <div class="linha"></div>
 
@@ -286,21 +286,24 @@ export function gerarHtmlAdvertencia(
                 EMPREGADO
               </div>
             </div>
+
           </div>
 
-        <table class="testemunhas-table">
+          <table class="testemunhas-table">
             <tr>
-                <td>
+              <td>
                 <div class="linha"></div>
-                <p>TESTEMUNHA</p>
-                </td>
 
-                <td>
-                <div class="linha"></div>
                 <p>TESTEMUNHA</p>
-                </td>
+              </td>
+
+              <td>
+                <div class="linha"></div>
+
+                <p>TESTEMUNHA</p>
+              </td>
             </tr>
-        </table>
+          </table>
 
           <div class="lgpd">
             Nós da COMFRIO valorizamos a privacidade e a
@@ -311,6 +314,7 @@ export function gerarHtmlAdvertencia(
             estabelecidos pela Lei Geral de Proteção de Dados
             Pessoais (LGPD).
           </div>
+
         </div>
       </body>
     </html>
