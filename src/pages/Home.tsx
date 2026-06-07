@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { View, Alert, Pressable, Text } from "react-native";
 import * as Sharing from "expo-sharing";
 import { Ionicons } from "@expo/vector-icons";
@@ -9,8 +9,11 @@ import { gerarPDF } from "../services/pdfService";
 import { AdvertenciaData } from "../types/advertencia";
 import Header from "../components/Header";
 import { Button } from "../components/Button";
+import { showError } from "../utils/toast";
 
 export default function Home() {
+  const scrollRef = useRef<KeyboardAwareScrollView>(null);
+
   const initialData: AdvertenciaData = {
     funcionario: "",
     admissao: undefined,
@@ -48,7 +51,17 @@ export default function Home() {
     }
 
     setErrors(novosErros);
-    return Object.keys(novosErros).length === 0;
+    const possuiErros = Object.keys(novosErros).length > 0;
+
+    if (possuiErros) {
+      showError(
+        "Campos obrigatórios",
+        "Preencha todos os campos obrigatórios.",
+      );
+      scrollRef.current?.scrollToPosition?.(0, 0, true);
+    }
+
+    return !possuiErros;
   };
 
   const handleGerarDocumento = async () => {
@@ -88,65 +101,68 @@ export default function Home() {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "#F8FAFC",
-      }}
-    >
-      <Header />
-      <KeyboardAwareScrollView
-        enableOnAndroid
-        keyboardShouldPersistTaps="handled"
-        extraScrollHeight={300}
+    <>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "#F8FAFC",
+        }}
       >
-        <View
-          style={{
-            backgroundColor: "#FFFFFF",
-            marginHorizontal: 16,
-            marginTop: 15,
-            borderRadius: 16,
-            padding: 16,
-            shadowColor: "#000",
-            shadowOpacity: 0.08,
-            shadowRadius: 8,
-            elevation: 2,
-          }}
+        <Header />
+        <KeyboardAwareScrollView
+          ref={scrollRef}
+          enableOnAndroid
+          keyboardShouldPersistTaps="handled"
+          extraScrollHeight={300}
         >
-          <AdvertenciaForm
-            data={data}
-            setData={setData}
-            errors={errors}
-            clearError={clearError}
+          <View
+            style={{
+              backgroundColor: "#FFFFFF",
+              marginHorizontal: 16,
+              marginTop: 15,
+              borderRadius: 16,
+              padding: 16,
+              shadowColor: "#000",
+              shadowOpacity: 0.08,
+              shadowRadius: 8,
+              elevation: 2,
+            }}
+          >
+            <AdvertenciaForm
+              data={data}
+              setData={setData}
+              errors={errors}
+              clearError={clearError}
+            />
+          </View>
+
+          <Button
+            title="Limpar Formulário"
+            variant="danger"
+            onPress={confirmarLimpeza}
+            style={{
+              marginHorizontal: 16,
+              marginTop: 20,
+            }}
+            icon={<Ionicons name="trash" size={20} color="#B91C1C" />}
           />
-        </View>
 
-        <Button
-          title="Limpar Formulário"
-          variant="danger"
-          onPress={confirmarLimpeza}
-          style={{
-            marginHorizontal: 16,
-            marginTop: 20,
-          }}
-          icon={<Ionicons name="trash" size={20} color="#B91C1C" />}
-        />
-
-        <Button
-          title={
-            data.tipoDocumento === "ADVERTENCIA"
-              ? "Gerar Advertência"
-              : "Gerar Suspensão"
-          }
-          onPress={handleGerarDocumento}
-          style={{
-            marginHorizontal: 16,
-            marginTop: 12,
-            marginBottom: 32,
-          }}
-          icon={<Ionicons name="document-text" size={20} color="#FFFFFF" />}
-        />
-      </KeyboardAwareScrollView>
-    </View>
+          <Button
+            title={
+              data.tipoDocumento === "ADVERTENCIA"
+                ? "Gerar Advertência"
+                : "Gerar Suspensão"
+            }
+            onPress={handleGerarDocumento}
+            style={{
+              marginHorizontal: 16,
+              marginTop: 12,
+              marginBottom: 32,
+            }}
+            icon={<Ionicons name="document-text" size={20} color="#FFFFFF" />}
+          />
+        </KeyboardAwareScrollView>
+      </View>
+    </>
   );
 }
