@@ -4,6 +4,7 @@ import { Asset } from "expo-asset";
 
 import { AdvertenciaData } from "../types/advertencia";
 import { gerarHtmlAdvertencia } from "./templateAdvertencia";
+import { logoBase64 } from "../data/logoBase64";
 
 function gerarNomeArquivo(data: AdvertenciaData) {
   const tipo =
@@ -26,27 +27,6 @@ function gerarNomeArquivo(data: AdvertenciaData) {
 }
 
 export async function gerarPDF(data: AdvertenciaData) {
-  async function carregarLogoBase64() {
-    // const asset = Asset.fromModule(require("../../assets/images/logo.png"));
-
-    // await asset.downloadAsync();
-
-    // return await FileSystem.readAsStringAsync(asset.localUri!, {
-    //   encoding: FileSystem.EncodingType.Base64,
-    // });
-
-    const asset = Asset.fromModule(require("../../assets/images/logo.png"));
-
-    await asset.downloadAsync();
-
-    const uri = asset.localUri ?? asset.uri;
-
-    return await FileSystem.readAsStringAsync(uri, {
-      encoding: FileSystem.EncodingType.Base64,
-    });
-  }
-
-  const logoBase64 = await carregarLogoBase64();
   const html = gerarHtmlAdvertencia(
     data,
     `data:image/png;base64,${logoBase64}`,
