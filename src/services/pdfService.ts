@@ -1,6 +1,5 @@
 import * as Print from "expo-print";
 import * as FileSystem from "expo-file-system/legacy";
-import { Asset } from "expo-asset";
 
 import { AdvertenciaData } from "../types/advertencia";
 import { gerarHtmlAdvertencia } from "./templateAdvertencia";

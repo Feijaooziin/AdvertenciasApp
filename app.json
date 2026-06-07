@@ -4,29 +4,23 @@
     "slug": "AdvertenciasApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/adaptive-icon.png",
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "backgroundColor": "#FFFFFF",
+        "foregroundImage": "./assets/adaptive-icon.png"
       },
       "predictiveBackGestureEnabled": false,
       "package": "com.feijaoozin.AdvertenciasApp"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/adaptive-icon.png"
     },
-    "plugins": [
-      "expo-sharing",
-      "expo-asset",
-      "expo-font"
-    ],
+    "plugins": ["expo-sharing", "expo-asset", "expo-font"],
     "extra": {
       "eas": {
         "projectId": "c7f7a45c-a46d-4c09-933d-7bba666877f7"
