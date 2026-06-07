@@ -1,14 +1,24 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Pressable, Text, View } from "react-native";
+
 import { COLORS } from "../constants/colors";
 
 interface Props {
   motivos: string[];
   selecionados: string[];
   onChange: (motivos: string[]) => void;
+
+  required?: boolean;
+  error?: string;
 }
 
-export function MotivosSelector({ motivos, selecionados, onChange }: Props) {
+export function MotivosSelector({
+  motivos,
+  selecionados,
+  onChange,
+  required,
+  error,
+}: Props) {
   function toggleMotivo(motivo: string) {
     const existe = selecionados.includes(motivo);
 
@@ -41,16 +51,24 @@ export function MotivosSelector({ motivos, selecionados, onChange }: Props) {
             marginRight: 10,
             alignItems: "center",
             justifyContent: "center",
-            borderColor: isSelected ? COLORS.primary : "#CBD5E1",
-            backgroundColor: isSelected ? COLORS.primary : "#CBD5E1",
+
+            borderColor: isSelected ? COLORS.primary : COLORS.border,
+
+            backgroundColor: isSelected ? COLORS.primary : COLORS.surface,
           }}
         >
           {isSelected && (
-            <Ionicons name="checkmark" size={16} color={"#FFFFFF"} />
+            <Ionicons name="checkmark" size={16} color="#FFFFFF" />
           )}
         </View>
 
-        <Text>{motivo}</Text>
+        <Text
+          style={{
+            color: COLORS.text,
+          }}
+        >
+          {motivo}
+        </Text>
       </Pressable>
     );
   }
@@ -65,20 +83,45 @@ export function MotivosSelector({ motivos, selecionados, onChange }: Props) {
         style={{
           fontSize: 14,
           fontWeight: "600",
+          color: error ? COLORS.danger : COLORS.primary,
           marginBottom: 8,
         }}
       >
         Motivos
+        {required && (
+          <Text
+            style={{
+              color: COLORS.danger,
+            }}
+          >
+            {" *"}
+          </Text>
+        )}
+      </Text>
+
+      <View
+        style={{
+          borderWidth: error ? 1 : 0,
+          borderColor: COLORS.danger,
+          borderRadius: 10,
+          padding: error ? 12 : 0,
+          backgroundColor: error ? COLORS.errorBackground : undefined,
+        }}
+      >
+        {motivos.map(renderMotivo)}
+      </View>
+
+      {!!error && (
         <Text
           style={{
             color: COLORS.danger,
+            fontSize: 12,
+            marginTop: 4,
           }}
         >
-          {" *"}
+          {error}
         </Text>
-      </Text>
-
-      {motivos.map(renderMotivo)}
+      )}
     </View>
   );
 }

@@ -24,21 +24,31 @@ export default function Home() {
   };
 
   const [data, setData] = useState(initialData);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  function clearError(field: string) {
+    setErrors((prev) => {
+      const next = { ...prev };
+
+      delete next[field];
+
+      return next;
+    });
+  }
 
   const validarFormulario = () => {
-    if (!data.funcionario.trim()) {
-      Alert.alert("Campo obrigatório", "Informe o nome do funcionário.");
+    const novosErros: Record<string, string> = {};
 
-      return false;
+    if (!data.funcionario.trim()) {
+      novosErros.funcionario = "Informe o nome do funcionário";
     }
 
     if (data.motivos.length === 0) {
-      Alert.alert("Campo obrigatório", "Selecione pelo menos um motivo.");
-
-      return false;
+      novosErros.motivos = "Selecione pelo menos um motivo";
     }
 
-    return true;
+    setErrors(novosErros);
+    return Object.keys(novosErros).length === 0;
   };
 
   const handleGerarDocumento = async () => {
@@ -48,7 +58,6 @@ export default function Home() {
 
     try {
       const caminho = await gerarPDF(data);
-
       const disponivel = await Sharing.isAvailableAsync();
 
       if (disponivel) {
@@ -56,7 +65,6 @@ export default function Home() {
       }
     } catch (error) {
       console.error("Erro ao gerar PDF:", error);
-
       Alert.alert("Erro", "Não foi possível gerar o documento.");
     }
   };
@@ -105,7 +113,12 @@ export default function Home() {
             elevation: 2,
           }}
         >
-          <AdvertenciaForm data={data} setData={setData} />
+          <AdvertenciaForm
+            data={data}
+            setData={setData}
+            errors={errors}
+            clearError={clearError}
+          />
         </View>
 
         <Button

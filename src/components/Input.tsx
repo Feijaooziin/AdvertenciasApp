@@ -25,7 +25,7 @@ export function Input({
         style={{
           fontSize: 14,
           fontWeight: "600",
-          color: COLORS.primary,
+          color: error ? COLORS.danger : COLORS.primary,
           marginBottom: 6,
         }}
       >
@@ -45,7 +45,7 @@ export function Input({
       <TextInput
         {...rest}
         multiline={multiline}
-        placeholderTextColor={COLORS.placeholder}
+        placeholderTextColor={error ? COLORS.danger : COLORS.border}
         style={{
           borderWidth: 1,
           borderColor: error ? COLORS.danger : COLORS.border,

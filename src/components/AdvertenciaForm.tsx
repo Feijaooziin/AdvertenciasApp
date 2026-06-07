@@ -12,9 +12,11 @@ import { MotivosSelector } from "./MotivosSelector";
 interface Props {
   data: AdvertenciaData;
   setData: Dispatch<SetStateAction<AdvertenciaData>>;
+  errors: Record<string, string>;
+  clearError: (field: string) => void;
 }
 
-export function AdvertenciaForm({ data, setData }: Props) {
+export function AdvertenciaForm({ data, setData, errors, clearError }: Props) {
   function updateField<K extends keyof AdvertenciaData>(
     field: K,
     value: AdvertenciaData[K],
@@ -30,9 +32,13 @@ export function AdvertenciaForm({ data, setData }: Props) {
       <Input
         label="Funcionário"
         required
+        error={errors.funcionario}
         value={data.funcionario}
         placeholder="Nome completo do funcionário"
-        onChangeText={(text) => updateField("funcionario", text)}
+        onChangeText={(text) => {
+          updateField("funcionario", text);
+          clearError("funcionario");
+        }}
       />
 
       <DatePickerInput
@@ -78,9 +84,14 @@ export function AdvertenciaForm({ data, setData }: Props) {
       />
 
       <MotivosSelector
+        required
+        error={errors.motivos}
         motivos={motivosAdvertencia}
         selecionados={data.motivos}
-        onChange={(motivos) => updateField("motivos", motivos)}
+        onChange={(motivos) => {
+          updateField("motivos", motivos);
+          clearError("motivos");
+        }}
       />
 
       <DatePickerInput
