@@ -9,6 +9,20 @@
     "ios": {
       "supportsTablet": true
     },
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#FFFFFF"
+        }
+      ],
+      "expo-sharing",
+      "expo-asset",
+      "expo-font"
+    ],
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#FFFFFF",
@@ -20,7 +34,6 @@
     "web": {
       "favicon": "./assets/adaptive-icon.png"
     },
-    "plugins": ["expo-sharing", "expo-asset", "expo-font"],
     "extra": {
       "eas": {
         "projectId": "c7f7a45c-a46d-4c09-933d-7bba666877f7"
