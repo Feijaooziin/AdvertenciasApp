@@ -1,11 +1,12 @@
 import Toast from "react-native-toast-message";
+import { toastConfig } from "./src/components/ToastConfig";
 import Home from "./src/pages/Home";
 
 export default function App() {
   return (
     <>
       <Home />
-      <Toast bottomOffset={80} topOffset={120} visibilityTime={3000} />
+      <Toast config={toastConfig} topOffset={120} />
     </>
   );
 }
