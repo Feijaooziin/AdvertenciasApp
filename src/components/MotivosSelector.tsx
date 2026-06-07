@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Pressable, Text, View } from "react-native";
+import { COLORS } from "../constants/colors";
 
 interface Props {
   motivos: string[];
@@ -40,11 +41,12 @@ export function MotivosSelector({ motivos, selecionados, onChange }: Props) {
             marginRight: 10,
             alignItems: "center",
             justifyContent: "center",
-            borderColor: isSelected ? "#2563EB" : "#CBD5E1",
+            borderColor: isSelected ? COLORS.primary : "#CBD5E1",
+            backgroundColor: isSelected ? COLORS.primary : "#CBD5E1",
           }}
         >
           {isSelected && (
-            <Ionicons name="checkmark" size={16} color="#2563EB" />
+            <Ionicons name="checkmark" size={16} color={"#FFFFFF"} />
           )}
         </View>
 
@@ -67,6 +69,13 @@ export function MotivosSelector({ motivos, selecionados, onChange }: Props) {
         }}
       >
         Motivos
+        <Text
+          style={{
+            color: COLORS.danger,
+          }}
+        >
+          {" *"}
+        </Text>
       </Text>
 
       {motivos.map(renderMotivo)}

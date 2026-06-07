@@ -1,4 +1,5 @@
 import { View, Text, Image, StatusBar } from "react-native";
+import { COLORS } from "../constants/colors";
 
 export default function Header() {
   return (
@@ -25,7 +26,7 @@ export default function Header() {
           style={{
             fontSize: 28,
             fontWeight: "700",
-            color: "#0F172A",
+            color: COLORS.primary,
           }}
         >
           Advertências
@@ -34,7 +35,7 @@ export default function Header() {
         <Text
           style={{
             fontSize: 14,
-            color: "#64748B",
+            color: COLORS.textSecondary,
             marginTop: 4,
           }}
         >

@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { Text, TouchableOpacity, TouchableOpacityProps } from "react-native";
+import { COLORS } from "../constants/colors";
 
 type Variant = "primary" | "danger";
 
@@ -29,8 +30,8 @@ export function Button({
           flexDirection: "row",
           gap: 8,
           borderWidth: 1,
-          borderColor: isDanger ? "#FCA5A5" : "#1D4ED8",
-          backgroundColor: isDanger ? "#FEF2F2" : "#2563EB",
+          borderColor: isDanger ? COLORS.danger : COLORS.secondary,
+          backgroundColor: isDanger ? "#FFF5F7" : COLORS.secondary,
         },
         rest.style,
       ]}
@@ -39,7 +40,7 @@ export function Button({
 
       <Text
         style={{
-          color: isDanger ? "#B91C1C" : "#FFFFFF",
+          color: isDanger ? COLORS.danger : "#FFFFFF",
           fontSize: 20,
           fontWeight: "600",
         }}

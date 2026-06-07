@@ -1,5 +1,6 @@
 import { Text, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import { COLORS } from "../constants/colors";
 
 interface PickerOption<T = string> {
   label: string;
@@ -33,7 +34,7 @@ export function PickerInput<T extends string | number>({
         style={{
           fontSize: 14,
           fontWeight: "600",
-          color: "#334155",
+          color: COLORS.primary,
           marginBottom: 6,
         }}
       >
@@ -51,9 +52,9 @@ export function PickerInput<T extends string | number>({
       >
         <Picker
           selectedValue={value}
-          dropdownIconColor="#64748B"
+          dropdownIconColor={COLORS.primary}
           style={{
-            color: "#0F172A",
+            color: COLORS.secondary,
             backgroundColor: "#FFFFFF",
           }}
           onValueChange={handleValueChange}
