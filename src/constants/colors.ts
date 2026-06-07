@@ -4,6 +4,7 @@ export const COLORS = {
   primary: "#1c2543",
   secondary: "#223262",
   danger: "#92223e",
+  success: "#12964e",
 
   background: "#F8FAFC",
   surface: "#FFFFFF",

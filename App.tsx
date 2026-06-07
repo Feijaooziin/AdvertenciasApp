@@ -6,7 +6,7 @@ export default function App() {
   return (
     <>
       <Home />
-      <Toast config={toastConfig} topOffset={120} />
+      <Toast config={toastConfig} position="top" topOffset={115} />
     </>
   );
 }

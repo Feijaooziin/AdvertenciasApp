@@ -10,6 +10,7 @@ import { AdvertenciaData } from "../types/advertencia";
 import Header from "../components/Header";
 import { Button } from "../components/Button";
 import { showError } from "../utils/toast";
+import * as Haptics from "expo-haptics";
 
 export default function Home() {
   const scrollRef = useRef<KeyboardAwareScrollView>(null);

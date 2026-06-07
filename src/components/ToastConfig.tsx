@@ -1,76 +1,115 @@
+import { Ionicons } from "@expo/vector-icons";
 import { View, Text } from "react-native";
 import { BaseToastProps } from "react-native-toast-message";
 
 import { COLORS } from "../constants/colors";
 
-export const toastConfig = {
-  success: ({ text1, text2 }: BaseToastProps) => (
+function ToastContainer({
+  icon,
+  borderColor,
+  title,
+  message,
+}: {
+  icon: React.ReactNode;
+  borderColor: string;
+  title?: string;
+  message?: string;
+}) {
+  return (
     <View
       style={{
-        width: "90%",
-        backgroundColor: `${COLORS.primary}DD`,
-        borderRadius: 12,
-        padding: 16,
+        width: "92%",
+        backgroundColor: COLORS.primary,
+        borderRadius: 14,
+        padding: 14,
         borderLeftWidth: 5,
-        borderLeftColor: "#22C55EDD",
+        borderLeftColor: borderColor,
+        flexDirection: "row",
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOpacity: 0.15,
+        shadowRadius: 8,
+        elevation: 5,
       }}
     >
-      <Text
+      <View
         style={{
-          color: "#FFFFFF",
-          fontSize: 22,
-          fontWeight: "700",
+          marginRight: 12,
         }}
       >
-        {text1}
-      </Text>
+        {icon}
+      </View>
 
-      {!!text2 && (
+      <View
+        style={{
+          flex: 1,
+        }}
+      >
         <Text
           style={{
-            color: "#E2E8F0",
-            fontSize: 16,
-            marginTop: 4,
+            color: "#FFF",
+            fontSize: 22,
+            fontWeight: "700",
           }}
         >
-          {text2}
+          {title}
         </Text>
-      )}
+
+        {!!message && (
+          <Text
+            style={{
+              color: "#E2E8F0",
+              fontSize: 16,
+              marginTop: 2,
+            }}
+          >
+            {message}
+          </Text>
+        )}
+      </View>
     </View>
+  );
+}
+
+export const toastConfig = {
+  success: ({ text1, text2 }: BaseToastProps) => (
+    <ToastContainer
+      title={text1}
+      message={text2}
+      borderColor={COLORS.success}
+      icon={
+        <Ionicons
+          name="checkmark-circle-outline"
+          size={36}
+          color={COLORS.success}
+        />
+      }
+    />
   ),
 
   error: ({ text1, text2 }: BaseToastProps) => (
-    <View
-      style={{
-        width: "90%",
-        backgroundColor: `${COLORS.primary}DD`,
-        borderRadius: 12,
-        padding: 16,
-        borderLeftWidth: 5,
-        borderLeftColor: `${COLORS.danger}DD`,
-      }}
-    >
-      <Text
-        style={{
-          color: "#FFFFFF",
-          fontSize: 22,
-          fontWeight: "700",
-        }}
-      >
-        {text1}
-      </Text>
+    <ToastContainer
+      title={text1}
+      message={text2}
+      borderColor={COLORS.danger}
+      icon={
+        <Ionicons name="alert-circle-outline" size={36} color={COLORS.danger} />
+      }
+    />
+  ),
 
-      {!!text2 && (
-        <Text
-          style={{
-            color: "#E2E8F0",
-            fontSize: 16,
-            marginTop: 4,
-          }}
-        >
-          {text2}
-        </Text>
-      )}
-    </View>
+  info: ({ text1, text2 }: BaseToastProps) => (
+    <ToastContainer
+      title={text1}
+      message={text2}
+      borderColor={COLORS.placeholder}
+      icon={
+        <Ionicons
+          name="alert-circle-outline"
+          size={36}
+          color={COLORS.placeholder}
+        />
+      }
+    />
   ),
 };
